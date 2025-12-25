@@ -27,7 +27,7 @@ Example output (terminal):
 ---
 
 ## Project Structure
-
+```
 ├── src/
 │ ├── main.c # Program entry point and CLI handling
 │ ├── image.c # Image loading and resizing
