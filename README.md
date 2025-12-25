@@ -60,12 +60,13 @@ Usage
 
 
 Planned Options
-
+```
 -w <width> : Set output width
 --no-color : Disable ANSI color output
 --no-edges : Disable edge detection
+```
 
-How It Works 
+## How It Works 
 
 1. Load image into an RGB pixel buffer.
 2. Resize image to fit terminal dimensions.
@@ -75,12 +76,12 @@ How It Works
 6. Print the result line by line to the terminal.
 
 
-License
+## License
 
 This project is licensed under the MIT License.
 You are free to use, modify, and distribute this software, provided that the original copyright notice and license are included in any copies or substantial portions of the software.
 
-Acknowledgements
+## Acknowledgements
 
 stb_image.h by Sean Barrett
 Used for image loading and decoding.
