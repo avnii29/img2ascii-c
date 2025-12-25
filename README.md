@@ -79,7 +79,6 @@ Planned Options
 ## License
 
 This project is licensed under the MIT License.
-You are free to use, modify, and distribute this software, provided that the original copyright notice and license are included in any copies or substantial portions of the software.
 
 ## Acknowledgements
 
