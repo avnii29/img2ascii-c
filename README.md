@@ -46,8 +46,8 @@ Example output (terminal):
 ├── Makefile
 ├── README.md
 └── LICENSE
+```
 
----
 
 ## Build
 
