@@ -10,10 +10,16 @@ The project loads an image, resizes it to fit the terminal, maps pixel brightnes
 
 - Load images (PNG, JPEG, etc.)
 - Resize images for terminal display (aspect-ratio aware)
-- Brightness-to-ASCII character mapping
-- ANSI 256-color terminal output
+- **3 Rendering Modes:**
+  - **Brightness Mode**: Classic brightness-to-ASCII mapping
+  - **Edge Mode**: Sobel edge detection for outlines
+  - **Hybrid Mode**: Combines brightness + edges for maximum detail (default)
+- Character gradient based on reference standards: ` .-=+*X#$&@`
+- Extended detailed character set for high-quality output
+- ANSI 24-bit true color terminal output
+- Center-aligned output
+- Contrast enhancement for minute detail visibility
 - Modular C codebase
-- (Optional) Sobel edge detection for enhanced detail
 
 ---
 
@@ -53,10 +59,36 @@ Example output (terminal):
 
 Requirements:
 - GCC or compatible C compiler
-- Unix-like terminal with ANSI color support
+- Terminal with ANSI color support (Windows Terminal, PowerShell, or Unix-like terminal)
 
-Usage
-./img2ascii-c examples/sample.jpg
+### Windows
+```bash
+# Build the project
+build.bat
+
+# Run with default sample image (hybrid mode)
+.\img2ascii.exe
+
+# Run with custom image
+.\img2ascii.exe path\to\your\image.jpg
+
+# Specify width
+.\img2ascii.exe -w 100 path\to\your\image.jpg
+
+# Choose rendering mode
+.\img2ascii.exe --mode brightness    # Classic brightness mapping
+.\img2ascii.exe --mode edges         # Edge detection only
+.\img2ascii.exe --mode hybrid        # Combined (default, best quality)
+```
+
+### Linux/Mac
+```bash
+# Build using Makefile
+make
+
+# Run
+./build/img2ascii assets/sample.jpg
+```
 
 
 Planned Options
@@ -68,12 +100,21 @@ Planned Options
 
 ## How It Works 
 
-1. Load image into an RGB pixel buffer.
-2. Resize image to fit terminal dimensions.
-3. Convert RGB values to brightness and HSV.
-4. Map brightness to ASCII characters.
-5. Map color to ANSI escape codes.
-6. Print the result line by line to the terminal.
+1. **Load Image**: Decode image into RGB pixel buffer using stb_image
+2. **Resize**: Scale image to target dimensions (aspect-ratio aware)
+3. **Edge Detection** (Hybrid/Edge modes): Apply Sobel convolution kernels
+   - Horizontal gradient: `[[-1,0,1], [-2,0,2], [-1,0,1]]`
+   - Vertical gradient: `[[-1,-2,-1], [0,0,0], [1,2,1]]`
+   - Calculate magnitude: `sqrt(gx² + gy²)`
+4. **Brightness Calculation**: Convert RGB to grayscale using luminance formula
+   - `Y = 0.2126*R + 0.7152*G + 0.0722*B`
+5. **Contrast Enhancement**: Apply contrast boost for detail visibility
+6. **Character Mapping**: Map intensity to ASCII character gradient
+   - Simple: ` .-=+*X#$&@`
+   - Detailed: ` .'^\`",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$`
+7. **Color Rendering**: Apply ANSI 24-bit true color codes
+8. **Center Alignment**: Auto-detect terminal width and center output
+9. **Print**: Render line by line to terminal
 
 
 ## License

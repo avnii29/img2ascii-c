@@ -2,7 +2,7 @@
 CC = gcc
 
 # Compiler flags
-CFLAGS = -Wall -Iinclude
+CFLAGS = -Wall -Wextra -Wpedantic -Iinclude
 
 # Source files
 SRCS = $(wildcard src/*.c)
@@ -28,7 +28,6 @@ build/%.o: src/%.c
 
 # Clean build files
 clean:
-	rm -rf build/*.o $(TARGET)
+	rm -rf build
 
 .PHONY: all clean
-
