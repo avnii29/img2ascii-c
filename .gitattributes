@@ -1,0 +1,13 @@
+﻿# Force Linguist to treat C source and headers as C
+*.c linguist-language=C
+*.h linguist-language=C
+
+# Mark third-party or generated files so they don't skew language stats
+include/stb_image.h linguist-vendored
+assets/moon.png linguist-vendored
+build/** linguist-vendored
+build.bat linguist-generated=true
+run.bat linguist-generated=true
+
+# If there are any other vendored/generated files, add them here
+
